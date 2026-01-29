@@ -6,3 +6,6 @@ class Place(models.Model):
     description_short = models.TextField()
     description_long = models.TextField()
     coordinates = models.JSONField(default=dict)
+    
+    def __str__(self):
+        return self.title
