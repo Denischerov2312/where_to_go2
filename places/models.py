@@ -1,5 +1,8 @@
 from django.db import models
 
 
-print('hello')
-# Create your models here.
+class Place(models.Model):
+    title = models.CharField(max_length=150)
+    description_short = models.TextField()
+    description_long = models.TextField()
+    coordinates = models.JSONField(default=dict)
