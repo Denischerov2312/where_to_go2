@@ -30,6 +30,9 @@ def get_geojson():
     return geo_json
 
 
+def show_title(request, place_id):
+    return HttpResponse(Place.objects.get(id=place_id).title)
+
 
 def show(request):
     template = loader.get_template('index.html')
