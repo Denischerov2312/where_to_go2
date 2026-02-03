@@ -1,40 +1,40 @@
 from django.http import HttpResponse
 from django.template import loader
+from places.models import Place
+from places.models import Image
 
 
-def show(request):
+def get_geojson():
     geo_json = {
       "type": "FeatureCollection",
-      "features": [
-        {
+      "features": []
+    }
+    Places = Place.objects.all()
+    Images = Image.objects.all()
+    for i in range(len(Places)):
+        coordinates = Places[i].coordinates
+        feature = {
           "type": "Feature",
           "geometry": {
             "type": "Point",
-            "coordinates": [37.62, 55.793676]
+            "coordinates": [float(coordinates['lng']), float(coordinates['lat'])]
           },
           "properties": {
-            "title": "«Легенды Москвы",
+            "title": Places[i].title,
             "placeId": "moscow_legends",
             "detailsUrl": "static/places/moscow_legends.json"
           }
-        },
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [37.64, 55.753676]
-          },
-          "properties": {
-            "title": "Крыши24.рф",
-            "placeId": "roofs24",
-            "detailsUrl": "static/places/roofs24.json"
-          }
         }
-      ]
-    }
+        geo_json["features"].append(feature)
+    print(len(geo_json['features']))
+    return geo_json
+
+
+
+def show(request):
     template = loader.get_template('index.html')
     context = {
-                'geo_json': geo_json,
+                'geo_json': get_geojson(),
                 'sidebar_js_filepath': 'leaflet-sidebar.js',
                 'favicon_filepath': 'favicon.png',
                 'sidebar_css_filepath': 'leaflet-sidebar.css',
