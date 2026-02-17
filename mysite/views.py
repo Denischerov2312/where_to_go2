@@ -58,14 +58,12 @@ def get_geojson():
       "features": []
     }
     Places = Place.objects.all()
-    Images = Image.objects.all()
     for i in range(len(Places)):
-        coordinates = Places[i].coordinates
         feature = {
           "type": "Feature",
           "geometry": {
             "type": "Point",
-            "coordinates": [float(coordinates['lng']), float(coordinates['lat'])]
+            "coordinates": [Places[i].longitude, Places[i].latitude]
           },
           "properties": {
             "title": Places[i].title,
