@@ -5,7 +5,8 @@ class Place(models.Model):
     title = models.CharField(max_length=150)
     description_short = models.TextField()
     description_long = models.TextField()
-    coordinates = models.JSONField(default=dict)
+    longitude = models.FloatField()
+    latitude = models.FloatField()
 
     def __str__(self):
         return self.title
@@ -15,6 +16,12 @@ class Image(models.Model):
     number = models.IntegerField()
     name = models.CharField()
     image = models.ImageField()
+    place = models.ForeignKey(Place,
+                              on_delete=models.CASCADE,
+                              related_name='images',
+                              blank=True,
+                              null=True,
+                              )
 
     def __str__(self):
         return f"{self.number} {self.name}"
