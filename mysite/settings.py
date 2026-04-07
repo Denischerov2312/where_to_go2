@@ -38,11 +38,11 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-CSRF_COOKIE_SECURE=True
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
-SESSION_COOKIE_SECURE=True
-
-SECURE_SSL_REDIRECT=True
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
+SECURE_SSL_REDIRECT = False
 # Application definition
 
 INSTALLED_APPS = [
