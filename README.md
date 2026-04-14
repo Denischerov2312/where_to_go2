@@ -6,23 +6,23 @@
 ## Запуск на локальном сервере
  - Для запуска проекта вам понадобится Python. Инструкция по [установке Python](https://skillbox.ru/media/code/kak_zapustit_python/).
 - Скачайте репозиторий с GitHub. Если у вас установлен git bash, можете использовать команду:
-  ```bash
-  git clone https://github.com/Denischerov2312/where_to_go2.git
-  cd where_to_go2
-  ```
+```bash
+git clone https://github.com/Denischerov2312/where_to_go2.git
+cd where_to_go2
+```
 - Создайте и активируйте виртуальное окружение(необязательно)
-  ```
-  python - m venv venv
-  venv\Scripts\activate
-  ```
+```
+python - m venv venv
+venv\Scripts\activate
+```
 - Затем используйте pip (или pip3, есть конфликт с Python2) для установки зависимостей:
-  ```sh
-  pip install -r requirements.txt
-  ```
+```sh
+pip install -r requirements.txt
+```
  - Настройте виртуальное окружение. Создайте файл `.env` в корневой папке проекта. Минимальные данные, которые нужны для запуска:
-  ```
-  SECRET_KEY=ВАШ_СЕКРЕТНЫЙ_КЛЮЧ
-  ```
+```
+SECRET_KEY=ВАШ_СЕКРЕТНЫЙ_КЛЮЧ
+```
 - Примените все миграции командой:
 ```
 python manage.py migrate
