@@ -41,7 +41,6 @@ class Command(BaseCommand):
                     for number, img in enumerate(data['imgs'], 1):
                         Image.objects.create(
                             place=place_obj,
-                            name=f'image{number}',
                             image=img,
                             number=number,
                         )
