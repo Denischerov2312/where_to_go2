@@ -33,8 +33,8 @@ class Command(BaseCommand):
                     data = json.load(file)
                     place_obj, create = Place.objects.get_or_create(
                         title=data['title'],
-                        description_short=data['description_short'],
-                        description_long=data['description_long'],
+                        short_description=data['description_short'],
+                        long_description=data['description_long'],
                         longitude=float(data['coordinates']['lng']),
                         latitude=float(data['coordinates']['lat']),
                     )
