@@ -14,7 +14,7 @@ class Place(models.Model):
 
 
 class Image(models.Model):
-    number = models.IntegerField('Номер', default=0)
+    number = models.IntegerField('Номер', default=0, db_index=True)
     image = models.ImageField('Картинка')
     place = models.ForeignKey(Place,
                               on_delete=models.CASCADE,
