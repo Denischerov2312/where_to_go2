@@ -23,6 +23,7 @@ class ImageInline(SortableTabularInline):
 @admin.register(Image)
 class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
     ordering = ['number']
+    raw_id_fields = ['place']
 
 
 @admin.register(Place)
