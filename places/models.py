@@ -23,7 +23,7 @@ class Image(models.Model):
                               )
 
     def __str__(self):
-        return f"{self.number} {self.name}"
+        return f"{self.number} {self.place.title}"
 
     class Meta:
         ordering = ['number']
