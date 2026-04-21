@@ -19,7 +19,9 @@ class Command(BaseCommand):
         files = response.json()
         for file_info in files:
             if file_info['name'].endswith('.json'):
-                file_data = requests.get(file_info['download_url']).json()
+                file_response = requests.get(file_info['download_url'])
+                file_response.raise_for_status()
+                file_data = file_response.json()
                 makedirs(self.saved_path, exist_ok=True)
                 with open(join(self.saved_path, file_info['name']), 'w', encoding='utf-8') as file:
                     json.dump(file_data, file, ensure_ascii=False)
