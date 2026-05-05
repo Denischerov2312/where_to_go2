@@ -51,7 +51,7 @@ class Command(BaseCommand):
                         latitude=float(place_details['coordinates']['lat']),
                     )
                     for number, img_url in enumerate(place_details['imgs'], 1):
-                        Image.objects.create(
+                        Image.objects.update_or_create(
                             place=place_obj,
                             image=self.download_img(img_url),
                             number=number,
