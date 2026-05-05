@@ -1,9 +1,11 @@
 import json
 import requests
+from django.core.files.base import ContentFile
 from pathlib import Path
 from django.core.management.base import BaseCommand
 from places.models import Place, Image
 from os.path import join
+from os.path import basename
 from os import makedirs
 
 
@@ -25,11 +27,19 @@ class Command(BaseCommand):
                 makedirs(self.saved_path, exist_ok=True)
                 with open(join(self.saved_path, file_info['name']), 'w', encoding='utf-8') as file:
                     json.dump(file_data, file, ensure_ascii=False)
+    
+    def download_img(self, img_url):
+        response = requests.get(img_url)
+        response.raise_for_status()
+        filename = basename(img_url)
+        img_content = ContentFile(response.content, name=filename)
+        return img_content
+        
 
     def handle(self, *args, **options):
         self.download_github_json()
 
-        for file_path in Path('static/places').iterdir():
+        for file_path in Path(self.saved_path).iterdir():
             if file_path.is_file():
                 with open(file_path, 'r', encoding='utf-8') as file:
                     place_details = json.load(file)
@@ -40,9 +50,9 @@ class Command(BaseCommand):
                         longitude=float(place_details['coordinates']['lng']),
                         latitude=float(place_details['coordinates']['lat']),
                     )
-                    for number, img in enumerate(place_details['imgs'], 1):
+                    for number, img_url in enumerate(place_details['imgs'], 1):
                         Image.objects.create(
                             place=place_obj,
-                            image=img,
+                            image=self.download_img(img_url),
                             number=number,
                         )
