@@ -10,7 +10,7 @@ from os import makedirs
 
 class Command(BaseCommand):
     help = "Загружает файлы json и данные из них в базу данных"
-    saved_path = 'static/places_json'
+    saved_path = 'static/places'
 
     def download_github_json(self, owner='devmanorg', repo='where-to-go-places', download_dirs='places'):
         github_url = join(f'https://api.github.com/repos/{owner}/{repo}/contents/',  download_dirs)
@@ -29,7 +29,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.download_github_json()
 
-        for file_path in Path('static/places_json').iterdir():
+        for file_path in Path('static/places').iterdir():
             if file_path.is_file():
                 with open(file_path, 'r', encoding='utf-8') as file:
                     data = json.load(file)
