@@ -32,15 +32,15 @@ class Command(BaseCommand):
         for file_path in Path('static/places').iterdir():
             if file_path.is_file():
                 with open(file_path, 'r', encoding='utf-8') as file:
-                    data = json.load(file)
+                    place_details = json.load(file)
                     place_obj, create = Place.objects.get_or_create(
-                        title=data['title'],
-                        short_description=data['description_short'],
-                        long_description=data['description_long'],
-                        longitude=float(data['coordinates']['lng']),
-                        latitude=float(data['coordinates']['lat']),
+                        title=place_details['title'],
+                        short_description=place_details['description_short'],
+                        long_description=place_details['description_long'],
+                        longitude=float(place_details['coordinates']['lng']),
+                        latitude=float(place_details['coordinates']['lat']),
                     )
-                    for number, img in enumerate(data['imgs'], 1):
+                    for number, img in enumerate(place_details['imgs'], 1):
                         Image.objects.create(
                             place=place_obj,
                             image=img,
