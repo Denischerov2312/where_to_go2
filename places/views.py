@@ -80,10 +80,6 @@ def show(request):
     template = loader.get_template('index.html')
     context = {
                 'geo_json': get_geojson(),
-                'sidebar_js_filepath': 'leaflet-sidebar.js',
-                'favicon_filepath': 'favicon.png',
-                'sidebar_css_filepath': 'leaflet-sidebar.css',
-                'svg_filepath': 'hand-pointer-regular.svg',
                }
     rendered_page = template.render(context, request)
     return HttpResponse(rendered_page)
