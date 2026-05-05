@@ -36,7 +36,6 @@ def start_page(request):
 
 def show_place(request, place_id):
     place = get_object_or_404(Place.objects.prefetch_related('images'), id=place_id)
-    place = get_object_or_404(Place.objects, id=place_id)
     images_urls = [image.image.url for image in place.images.all()]
 
     payload = {
