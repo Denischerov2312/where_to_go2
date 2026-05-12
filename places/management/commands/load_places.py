@@ -25,7 +25,7 @@ class Command(BaseCommand):
             response.raise_for_status()
             files = response.json()
             if 'error' in files:
-                raise requests.exceptions.HTTPError(file['error'])
+                raise requests.exceptions.HTTPError(files['error'])
         except requests.exceptions.RequestException as e:
             self.stdout.write(self.style.ERROR(f"Не удалось получить список файлов: {e}"))
         self.stdout.write(f"Загрузка данных json из {github_url}")
