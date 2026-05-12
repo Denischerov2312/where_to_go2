@@ -9,7 +9,6 @@ from os.path import basename
 from os import makedirs
 
 
-
 class Command(BaseCommand):
     help = "Загружает файлы json и данные из них в базу данных"
     saved_path = 'static/places'
@@ -27,14 +26,13 @@ class Command(BaseCommand):
                 makedirs(self.saved_path, exist_ok=True)
                 with open(join(self.saved_path, file_info['name']), 'w', encoding='utf-8') as file:
                     json.dump(file_data, file, ensure_ascii=False)
-    
+
     def download_img(self, img_url):
         response = requests.get(img_url)
         response.raise_for_status()
         filename = basename(img_url)
         img_content = ContentFile(response.content, name=filename)
         return img_content
-        
 
     def handle(self, *args, **options):
         self.download_github_json()
@@ -43,7 +41,7 @@ class Command(BaseCommand):
             if file_path.is_file():
                 with open(file_path, 'r', encoding='utf-8') as file:
                     place_details = json.load(file)
-                    place_obj, create = Place.objects.get_or_create(
+                    place_obj, _ = Place.objects.get_or_create(
                         title=place_details['title'],
                         short_description=place_details['description_short'],
                         long_description=place_details['description_long'],
@@ -51,8 +49,10 @@ class Command(BaseCommand):
                         latitude=float(place_details['coordinates']['lat']),
                     )
                     for number, img_url in enumerate(place_details['imgs'], 1):
-                        Image.objects.update_or_create(
+                        image_obj, created = Image.objects.get_or_create(
                             place=place_obj,
-                            image=self.download_img(img_url),
-                            number=number,
+                            number=number
                         )
+                        if created:
+                            image_obj.image = self.download_img(img_url)
+                            image_obj.save()
