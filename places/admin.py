@@ -1,9 +1,7 @@
 from django.contrib import admin
 from .models import Place, Image
 from django.utils.html import format_html
-from adminsortable2.admin import SortableAdminMixin
-from adminsortable2.admin import SortableTabularInline
-from adminsortable2.admin import SortableAdminBase
+from adminsortable2.admin import SortableAdminMixin, SortableTabularInline, SortableAdminBase
 
 
 class ImageInline(SortableTabularInline):

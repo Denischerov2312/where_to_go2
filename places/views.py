@@ -1,10 +1,7 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import loader
-from places.models import Place
-from places.models import Image
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
-from django.shortcuts import render
+from places.models import Place, Image
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
 

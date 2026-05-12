@@ -4,8 +4,7 @@ from django.core.files.base import ContentFile
 from pathlib import Path
 from django.core.management.base import BaseCommand
 from places.models import Place, Image
-from os.path import join
-from os.path import basename
+from os.path import join, basename
 from os import makedirs
 
 
