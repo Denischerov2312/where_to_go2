@@ -10,7 +10,7 @@ from places.models import Place, Image
 
 
 class Command(BaseCommand):
-    help = "Загружает файлы json и данные из них в базу данных"
+    help = 'Загружает файлы json и данные из них в базу данных'
     saved_path = 'static/places'
 
     def download_github_json(
@@ -59,9 +59,9 @@ class Command(BaseCommand):
                         latitude=float(place_details['coordinates']['lat']),
                     )
                     if place_created:
-                        self.stdout.write(self.style.SUCCESS(f"Добавлено место: {place_obj.title}"))
+                        self.stdout.write(self.style.SUCCESS(f'Добавлено место: {place_obj.title}'))
                     else:
-                        self.stdout.write(self.style.WARNING(f"Место: {place_obj.title} уже есть в базе"))
+                        self.stdout.write(self.style.WARNING(f'Место: {place_obj.title} уже есть в базе'))
                     for number, img_url in enumerate(place_details['imgs'], 1):
                         image_obj, created = Image.objects.get_or_create(
                             place=place_obj,
