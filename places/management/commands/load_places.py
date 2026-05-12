@@ -1,11 +1,12 @@
 import json
-import requests
-from django.core.files.base import ContentFile
-from pathlib import Path
-from django.core.management.base import BaseCommand
-from places.models import Place, Image
 from os.path import join, basename
 from os import makedirs
+from pathlib import Path
+
+import requests
+from django.core.files.base import ContentFile
+from django.core.management.base import BaseCommand
+from places.models import Place, Image
 
 
 class Command(BaseCommand):

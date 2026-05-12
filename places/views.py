@@ -1,8 +1,8 @@
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
-from places.models import Place, Image
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
+from places.models import Place
 
 
 def start_page(request):
