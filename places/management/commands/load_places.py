@@ -13,8 +13,12 @@ class Command(BaseCommand):
     help = "Загружает файлы json и данные из них в базу данных"
     saved_path = 'static/places'
 
-    def download_github_json(self, owner='devmanorg', repo='where-to-go-places', download_dirs='places'):
-        github_url = join(f'https://api.github.com/repos/{owner}/{repo}/contents/',  download_dirs)
+    def download_github_json(self,
+                             owner='devmanorg',
+                             repo='where-to-go-places',
+                             download_dirs='places'):
+        github_url = join(f'https://api.github.com/repos/{owner}/{repo}/contents/',
+                          download_dirs)
         response = requests.get(github_url)
         response.raise_for_status()
         files = response.json()
@@ -25,7 +29,9 @@ class Command(BaseCommand):
                 file_response.raise_for_status()
                 file_data = file_response.json()
                 makedirs(self.saved_path, exist_ok=True)
-                with open(join(self.saved_path, file_info['name']), 'w', encoding='utf-8') as file:
+                with open(join(self.saved_path,
+                               file_info['name']),
+                          'w', encoding='utf-8') as file:
                     json.dump(file_data, file, ensure_ascii=False)
                 self.stdout.write(self.style.SUCCESS(f"Успешно загружено: {file_info['name']}"))
 
